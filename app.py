@@ -4,7 +4,7 @@ import streamlit as st
 # =============================
 # CONFIG
 # =============================
-API_BASE = "https://movie-rec-466x.onrender.com" or "http://127.0.0.1:8000"
+API_BASE = "https://moviemind-kdtv.onrender.com" or "http://127.0.0.1:8000"
 TMDB_IMG = "https://image.tmdb.org/t/p/w500"
 
 st.set_page_config(page_title="Movie Recommender", page_icon="🎬", layout="wide")
@@ -91,7 +91,8 @@ def poster_grid(cards, cols=6, key_prefix="grid"):
 
             tmdb_id = m.get("tmdb_id")
             title = m.get("title", "Untitled")
-            poster = m.get("poster_url")
+            poster = m.get("poster_path") or m.get("poster_url")
+
 
             with colset[c]:
                 if poster:
@@ -163,7 +164,7 @@ def parse_tmdb_search_to_cards(data, keyword: str, limit: int = 24):
             # might be {tmdb_id,title,poster_url}
             tmdb_id = m.get("tmdb_id") or m.get("id")
             title = (m.get("title") or "").strip()
-            poster_url = m.get("poster_url")
+            poster_url = m.get("poster_path") or m.get("poster_url")
             if not title or not tmdb_id:
                 continue
             raw_items.append(
@@ -308,8 +309,8 @@ elif st.session_state.view == "details":
 
     with left:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
-        if data.get("poster_url"):
-            st.image(data["poster_url"], use_column_width=True)
+        if data.get("poster_path"):
+            st.image(data["poster_path"], use_column_width=True)
         else:
             st.write("🖼️ No poster")
         st.markdown("</div>", unsafe_allow_html=True)
