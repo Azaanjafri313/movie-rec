@@ -3,12 +3,12 @@ uvicorn==0.34.0
 httpx==0.27.0
 python-dotenv==1.0.1
 
-#DAta and ML 
+# Data & ML
 pandas
-scipy==1.13.1
-scikit-learn==1.5.0
-joblib==1.4.2
-numpy==2.1.0
+numpy
+scipy
+scikit-learn
+joblib
 
-#frontend
-streamlit==1.36.0
+# Frontend
+streamlit
